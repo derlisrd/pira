@@ -44,7 +44,13 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 10),
               LoginButton(onTap: loginUser,),
               const SizedBox(height: 40),
-              Divider(thickness: 0.5, color: Colors.grey[400],)
+              Row(
+                children: [
+                  Divider(thickness: 0.5, color: Colors.grey[400],),
+                  const Text("No tienes cuenta? Registrate"),
+                  Divider(thickness: 0.5, color: Colors.grey[400],),
+                ],
+              )
             ],
           ),
         ),
