@@ -20,38 +20,56 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body:  SafeArea(
-        child: Center(
-          child: Column(
-            children:[
-              const SizedBox(height: 50),
-              const Icon(Icons.lock, size: 100,),
-              const SizedBox(height: 20),
-              const Text("Bienvenido devuelta."),
-              const SizedBox(height: 15),
-              LoginField(hintText: "E-mail o usuario", obscureText: false, controller: userController),
-              const SizedBox(height: 10),
-              LoginField(hintText: "Contraseña",obscureText: true, controller: passController),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text("Olvidaste la clave?",style: TextStyle(color: Colors.grey[700]),),
-                  ],
-                ),
+        child: SingleChildScrollView(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 320
               ),
-              const SizedBox(height: 10),
-              LoginButton(onTap: loginUser,),
-              const SizedBox(height: 40),
-              Row(
-                children: [
-                  Divider(thickness: 0.5, color: Colors.grey[400],),
-                  const Text("No tienes cuenta? Registrate"),
-                  Divider(thickness: 0.5, color: Colors.grey[400],),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:[
+                  const SizedBox(height: 50),
+                  const Icon(Icons.lock, size: 100,),
+                  const SizedBox(height: 20),
+                  const Text("Bienvenido devuelta."),
+                  const SizedBox(height: 15),
+                  LoginField(hintText: "E-mail o usuario", obscureText: false, controller: userController),
+                  const SizedBox(height: 10),
+                  LoginField(hintText: "Contraseña",obscureText: true, controller: passController),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text("Olvidaste la clave?",style: TextStyle(color: Colors.grey[700]),),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  LoginButton(onTap: loginUser,),
+                  const SizedBox(height: 40),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        Expanded(child:
+                         Divider(thickness: 0.5, color: Colors.grey[400],)
+                        ),
+                        const Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: 10),
+                          child:  Text("Registrate aqui", style: TextStyle(color:Colors.green),),
+                        ),
+                        Expanded(child:
+                         Divider(thickness: 0.5, color: Colors.grey[400],)
+                        ),
+                      ],
+                    ),
+                  )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
         ),
       ),
