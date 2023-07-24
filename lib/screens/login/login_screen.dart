@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pira/services/api.dart';
 import 'package:pira/widgets/Buttons/login_button.dart';
 import 'package:pira/widgets/TextFields/login_field.dart';
 
@@ -10,8 +11,13 @@ class LoginScreen extends StatelessWidget {
 
 
   void loginUser(){
-    print(userController.text);
-    print(passController.text);
+    String identifier = (userController.text);
+    String password = (passController.text);
+    Map<String,String> credenciales = {
+      "identifier":identifier,
+      "password":password
+    }; 
+    Api().login(credenciales);
   }
 
   @override
@@ -27,7 +33,6 @@ class LoginScreen extends StatelessWidget {
                 maxWidth: 320
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children:[
                   const SizedBox(height: 50),
                   const Icon(Icons.lock, size: 100,),
@@ -38,40 +43,69 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   LoginField(hintText: "Contraseña",obscureText: true, controller: passController),
                   const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text("Olvidaste la clave?",style: TextStyle(color: Colors.grey[700]),),
-                      ],
-                    ),
-                  ),
+                  const _Forgot(),
                   const SizedBox(height: 10),
                   LoginButton(onTap: loginUser,),
                   const SizedBox(height: 40),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      children: [
-                        Expanded(child:
-                         Divider(thickness: 0.5, color: Colors.grey[400],)
-                        ),
-                        const Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: 10),
-                          child:  Text("Registrate aqui", style: TextStyle(color:Colors.green),),
-                        ),
-                        Expanded(child:
-                         Divider(thickness: 0.5, color: Colors.grey[400],)
-                        ),
-                      ],
-                    ),
-                  )
+                  const _Registro()
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _Forgot extends StatelessWidget {
+  const _Forgot({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            "Olvidaste la clave?",
+            style: TextStyle(color: Colors.grey[700]),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+class _Registro extends StatelessWidget {
+  const _Registro({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          Expanded(
+              child: Divider(
+            thickness: 0.5,
+            color: Colors.grey[400],
+          )),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              "Registrate aqui",
+              style: TextStyle(color: Colors.green),
+            ),
+          ),
+          Expanded(
+              child: Divider(
+            thickness: 0.5,
+            color: Colors.grey[400],
+          )),
+        ],
       ),
     );
   }
