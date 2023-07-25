@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:pira/providers/main_provider.dart';
 import 'package:pira/services/api.dart';
 import 'package:pira/widgets/Buttons/login_button.dart';
 import 'package:pira/widgets/TextFields/login_field.dart';
@@ -10,19 +12,25 @@ class LoginScreen extends StatelessWidget {
   final passController  = TextEditingController();
 
 
-  void loginUser(){
+  
+
+  @override
+  Widget build(BuildContext context) {
+    final mainProvider = context.watch<MainProvider>();
+
+    void loginUser(){
     String identifier = (userController.text);
     String password = (passController.text);
     Map<String,String> credenciales = {
       "identifier":identifier,
       "password":password
     }; 
-    Api().login(credenciales);
+    final respuesta = Api().login(credenciales);
+    print(respuesta.toString());
+    mainProvider.login();
+    Navigator.pushNamed(context, '/');
   }
 
-  @override
-  Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body:  SafeArea(
