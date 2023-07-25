@@ -8,7 +8,7 @@ class Api{
   Future<Map<String, dynamic>> login(Map<String,String> credencials)async{
     try {
       final response = await dio.post(
-      'http://localhost:1330/api/auth/local',
+      'https://api.ruizdiaz.dev/api/auth/local',
       data: credencials,
       options: Options(
         headers: {

@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 
 
 class MainProvider extends ChangeNotifier {
-  bool _isAuth = false;
+  bool _isAuthenticated = true;
 
-  bool get isAuth => _isAuth;
+  bool get isAuthenticated => _isAuthenticated;
 
   void login() {
-    _isAuth = true;
+    // Aquí implementa la lógica de inicio de sesión.
+    _isAuthenticated = true;
     notifyListeners();
   }
 
   void logout() {
-    _isAuth = false;
+    // Aquí implementa la lógica de cierre de sesión.
+    _isAuthenticated = false;
     notifyListeners();
   }
 

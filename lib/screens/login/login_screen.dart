@@ -16,19 +16,19 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mainProvider = context.watch<MainProvider>();
 
-    void loginUser(){
+    final mainProvider = Provider.of<MainProvider>(context,listen: false);
+
+    void loginUser()async{
     String identifier = (userController.text);
     String password = (passController.text);
     Map<String,String> credenciales = {
       "identifier":identifier,
       "password":password
     }; 
-    final respuesta = Api().login(credenciales);
+    final respuesta = await Api().login(credenciales);
     print(respuesta.toString());
     mainProvider.login();
-    Navigator.pushNamed(context, '/');
   }
 
     return Scaffold(
