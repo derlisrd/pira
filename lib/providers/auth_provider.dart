@@ -33,7 +33,7 @@ class AuthNotifier extends StateNotifier<AuthState>{
         "password": password
       };
       final user = await Api().login(credenciales);
-      _setloguser(user);
+      //_setloguser(user);
     } catch (e) {
       logout('Credenciales incorrectas');
     }

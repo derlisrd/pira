@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pira/screens/main_screen.dart';
 import 'package:pira/services/api.dart';
 import 'package:pira/widgets/Buttons/login_button.dart';
 import 'package:pira/widgets/TextFields/login_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -16,27 +18,52 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final userController  = TextEditingController();
-
   final passController  = TextEditingController();
+  String error = '';
+  late SharedPreferences prefers;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initSharePreferences();
+  }
 
-    String error = '';
+  void initSharePreferences() async{
+    prefers = await SharedPreferences.getInstance();
+  }
 
-    void loginUser()async{
+  loginUser(BuildContext context)async{
     String identifier = (userController.text.trim());
     String password = (passController.text.trim());
     if(identifier.isEmpty){
-      setState(() => error = 'Completa usuario o email');
-      print('es valcio');
+      setState(() => error = 'Complete el usuario');
+      return;
     }
-      /* final res = await Api().login({"identifier":identifier,"password":password});
+    if(password.isEmpty){
+      setState(() => error = 'Complete la contraseña');
+      return;
+    }
+    
+      final res = await Api().login({"identifier":identifier,"password":password});
       if(res.isLogin){
-        
-      } */
+        setState(() {
+          error = '';
+        });
+        prefers.setString('jwt', res.jwt.toString());
+        //Navigator.push(context, MaterialPageRoute(builder: (context)=> const MainScreen()));
+        if(context.mounted){
+          Navigator.pushReplacementNamed(context,'/');
+        }
+      }else{
+        setState(() {
+          error = res.errorMessage.toString();
+        });
+      }
     }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body:  SafeArea(
@@ -53,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 20),
                   const Text("Bienvenido devuelta."),
                   const SizedBox(height: 15),
-                  error.isEmpty ? const SizedBox(height: 1) : const SizedBox(height: 60,),
+                  error.isEmpty ? const SizedBox(height: 1) : _MessageError(message: error,),
                   const SizedBox(height: 15),
                   LoginField(hintText: "E-mail o usuario", autoFocus: true, icon: const Icon(Icons.people), obscureText: false, controller: userController),
                   const SizedBox(height: 10),
@@ -61,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 10),
                   const _Forgot(),
                   const SizedBox(height: 10),
-                  LoginButton(onTap: loginUser,),
+                  LoginButton(onTap: ()=> loginUser(context),),
                   const SizedBox(height: 40),
                   const _Registro()
                 ],
@@ -84,16 +111,20 @@ class _MessageError extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 25),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-      color: Colors.red[400],
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(color: Colors.red),
+        borderRadius: BorderRadius.circular(8)
+      ),
       child: Center(
-        child: Text(message,style: const TextStyle(color:Colors.white),) 
+        child: Text(message,style:  TextStyle(color:Colors.red[900]),) 
       ),
     );
   }
 }
 
 class _Forgot extends StatelessWidget {
-  const _Forgot({super.key});
+  const _Forgot();
 
   @override
   Widget build(BuildContext context) {

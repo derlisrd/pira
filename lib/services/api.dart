@@ -24,12 +24,11 @@ class Api{
       
     } catch (e) {
       if (e is DioException && e.response != null) {
-        print('Error en el logueo: ${e.response!.data}');
+        return LoginModel(isLogin: false,errorMessage:e.response!.data['error']['message'] );
       } else {
         // Manejar otros errores, como problemas de conexión o timeouts.
-        print('Error en el logueo: $e');
+        return LoginModel(isLogin: false,errorMessage:e.toString() );
       }
-      return LoginModel(isLogin: false,errorMessage: e.toString());
     }
 
 
