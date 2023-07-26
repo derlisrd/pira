@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pira/screens/main_screen.dart';
 import 'package:pira/services/api.dart';
 import 'package:pira/widgets/Buttons/login_button.dart';
 import 'package:pira/widgets/TextFields/login_field.dart';
@@ -20,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final userController  = TextEditingController();
   final passController  = TextEditingController();
   String error = '';
+  bool isLoading = false;
   late SharedPreferences prefers;
 
   @override
@@ -33,47 +33,54 @@ class _LoginScreenState extends State<LoginScreen> {
     prefers = await SharedPreferences.getInstance();
   }
 
-  loginUser(BuildContext context)async{
+  loginUser(BuildContext context) async {
     String identifier = (userController.text.trim());
     String password = (passController.text.trim());
-    if(identifier.isEmpty){
+    if (identifier.isEmpty) {
       setState(() => error = 'Complete el usuario');
       return;
     }
-    if(password.isEmpty){
+    if (password.isEmpty) {
       setState(() => error = 'Complete la contraseña');
       return;
     }
-    
-      final res = await Api().login({"identifier":identifier,"password":password});
-      if(res.isLogin){
-        setState(() {
-          error = '';
-        });
-        prefers.setString('jwt', res.jwt.toString());
-        //Navigator.push(context, MaterialPageRoute(builder: (context)=> const MainScreen()));
-        if(context.mounted){
-          Navigator.pushReplacementNamed(context,'/');
-        }
-      }else{
-        setState(() {
-          error = res.errorMessage.toString();
-        });
+    setState(() {
+      error = '';
+      isLoading = true;
+    });
+    final res =
+        await Api().login({"identifier": identifier, "password": password});
+    if (res.isLogin) {
+      setState(() {
+        error = '';
+      });
+      prefers.setString('jwt', res.jwt.toString());
+      //Navigator.push(context, MaterialPageRoute(builder: (context)=> const MainScreen()));
+      if (context.mounted) {
+        Navigator.pushReplacementNamed(context, '/');
       }
+    } else {
+      setState(() {
+        isLoading = false;
+        error = res.errorMessage.toString();
+      });
     }
+  }
 
   @override
   Widget build(BuildContext context) {
+    Color primary = Theme.of(context).primaryColor;
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      body:  SafeArea(
+      body: isLoading ? Container(alignment: Alignment.center , child: CircularProgressIndicator(color: primary,) ):  SafeArea(
         child: SingleChildScrollView(
           child: Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(
                 maxWidth: 320
               ),
-              child: Column(
+              child: 
+                Column(
                 children:[
                   const SizedBox(height: 50),
                   const Icon(Icons.lock, size: 100,),
@@ -92,7 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 40),
                   const _Registro()
                 ],
-              ),
+              )
+              ,
             ),
           ),
         ),

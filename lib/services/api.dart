@@ -2,7 +2,6 @@
 
 import 'package:dio/dio.dart';
 import 'package:pira/model/login_model.dart';
-import 'package:pira/model/user_model.dart';
 
 class Api{
   final dio = Dio();
