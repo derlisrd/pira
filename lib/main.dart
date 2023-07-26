@@ -1,47 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:pira/providers/main_provider.dart';
 import 'package:pira/routes/app_routes.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const AppState());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
-class AppState extends StatelessWidget {
-  const AppState({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          lazy: false,
-          create: (_) =>  MainProvider() ,
-        )
-      ],
-      child: const MyApp(),
-    );
-  }
-}
-
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-
-    final mainProvider = context.watch<MainProvider>();
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Pira pire',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+        primaryColor: Colors.grey,
         useMaterial3: true,
       ),
-      initialRoute: mainProvider.isAuthenticated ? '/home' : '/login',
+      initialRoute: '/',
       routes: AppRoutes().rutas(context),
     );
   }

@@ -1,11 +1,14 @@
 
 
 import 'package:dio/dio.dart';
+import 'package:pira/model/login_model.dart';
+import 'package:pira/model/user_model.dart';
 
 class Api{
   final dio = Dio();
   
-  Future<Map<String, dynamic>> login(Map<String,String> credencials)async{
+  //Future<Map<String, dynamic>> login(Map<String,String> credencials)async{
+  Future<LoginModel> login(Map<String,String> credencials)async{
     try {
       final response = await dio.post(
       'https://api.ruizdiaz.dev/api/auth/local',
@@ -17,27 +20,16 @@ class Api{
         })
         );
 
-      Map<String,dynamic> res = {
-        "jwt": response.data['jwt'],
-        "response":true,
-        "message":"Login exitoso"
-      }; 
-      return res ;
-    
+       return LoginModel(isLogin: true, jwt: response.data['jwt']);
+      
     } catch (e) {
       if (e is DioException && e.response != null) {
-
         print('Error en el logueo: ${e.response!.data}');
       } else {
         // Manejar otros errores, como problemas de conexión o timeouts.
         print('Error en el logueo: $e');
       }
-      Map<String,dynamic> res = {
-        "jwt": "",
-        "response":false,
-        "message":e
-      };
-      return res;
+      return LoginModel(isLogin: false,errorMessage: e.toString());
     }
 
 
