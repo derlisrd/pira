@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pira/screens/home/home_screen.dart';
-import 'package:pira/screens/login/login_screen.dart';
-import 'package:pira/screens/main_screen.dart';
-
+import 'package:pira/screens/screens.dart';
 
 class AppRoutes {
   
@@ -10,7 +7,8 @@ class AppRoutes {
 
     return {
       '/':(context) => const MainScreen(),
-      '/login':(context) => LoginScreen(),
+      '/add': (context) => const AddScreen(),
+      '/login':(context) => const LoginScreen(),
       '/home' :(context) => const HomeScreen(),
     };
   }  

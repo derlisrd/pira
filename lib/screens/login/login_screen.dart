@@ -73,35 +73,28 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: isLoading ? Container(alignment: Alignment.center , child: CircularProgressIndicator(color: primary,) ):  SafeArea(
-        child: SingleChildScrollView(
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 320
+        child: Container(
+          alignment: Alignment.center,
+          child: SingleChildScrollView (
+            child: Column(
+            children:[
+              const Icon(Icons.lock, size: 100,),
+              const SizedBox(height: 20),
+              const Text("Bienvenido devuelta."),
+              const SizedBox(height: 15),
+              error.isEmpty ? const SizedBox(height: 1) : _MessageError(message: error,),
+              const SizedBox(height: 15),
+              LoginField(hintText: "E-mail o usuario", autoFocus: true, icon: const Icon(Icons.people), obscureText: false, controller: userController),
+              const SizedBox(height: 10),
+              LoginField(hintText: "Contraseña", icon:const Icon(Icons.lock),obscureText: true, controller: passController),
+              const SizedBox(height: 10),
+              const _Forgot(),
+              const SizedBox(height: 10),
+              LoginButton(onTap: ()=> loginUser(context),),
+              const SizedBox(height: 40),
+              const _Registro()
+            ],
               ),
-              child: 
-                Column(
-                children:[
-                  const SizedBox(height: 50),
-                  const Icon(Icons.lock, size: 100,),
-                  const SizedBox(height: 20),
-                  const Text("Bienvenido devuelta."),
-                  const SizedBox(height: 15),
-                  error.isEmpty ? const SizedBox(height: 1) : _MessageError(message: error,),
-                  const SizedBox(height: 15),
-                  LoginField(hintText: "E-mail o usuario", autoFocus: true, icon: const Icon(Icons.people), obscureText: false, controller: userController),
-                  const SizedBox(height: 10),
-                  LoginField(hintText: "Contraseña", icon:const Icon(Icons.lock),obscureText: true, controller: passController),
-                  const SizedBox(height: 10),
-                  const _Forgot(),
-                  const SizedBox(height: 10),
-                  LoginButton(onTap: ()=> loginUser(context),),
-                  const SizedBox(height: 40),
-                  const _Registro()
-                ],
-              )
-              ,
-            ),
           ),
         ),
       ),

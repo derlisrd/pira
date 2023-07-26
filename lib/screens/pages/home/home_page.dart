@@ -5,6 +5,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('HOME'),);
+    return Center(child: ElevatedButton(onPressed: (){ Navigator.pushNamed(context,'/add');}, child: const Text("Agregar")));
   }
 }

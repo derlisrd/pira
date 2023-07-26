@@ -36,9 +36,9 @@ class _MainScreenState extends State<MainScreen> {
         currentIndex: _currentIndex,
         items:
           const[
-            BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet),label: 'Home'),
             BottomNavigationBarItem(icon: Icon(Icons.settings),label: 'Config'),
-            BottomNavigationBarItem(icon: Icon(Icons.people),label: 'Account'),
+            BottomNavigationBarItem(icon: Icon(Icons.account_circle),label: 'Account'),
           ]
         ),
     );
