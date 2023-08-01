@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pira/utils/constants.dart';
 
 // ignore: must_be_immutable
 class LoginButton extends StatelessWidget {
@@ -16,7 +17,7 @@ class LoginButton extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 25),
         padding: const EdgeInsets.all(20),
         decoration:  BoxDecoration(
-          color: Colors.black,
+          color: fontDark,
           borderRadius: BorderRadius.circular(8)
         ),
         child: 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pira/services/api.dart';
+import 'package:pira/utils/constants.dart';
 import 'package:pira/widgets/Buttons/login_button.dart';
 import 'package:pira/widgets/TextFields/login_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     initSharePreferences();
   }
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: SingleChildScrollView (
             child: Column(
             children:[
-              const Icon(Icons.lock, size: 100,),
+              const Icon(Icons.lock, size: 100,color: fontDark,),
               const SizedBox(height: 20),
               const Text("Bienvenido devuelta."),
               const SizedBox(height: 15),
@@ -146,7 +146,7 @@ class _Forgot extends StatelessWidget {
 
 
 class _Registro extends StatelessWidget {
-  const _Registro({super.key});
+  const _Registro();
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pira/model/user_model.dart';
-import 'package:pira/services/api.dart';
+//import 'package:pira/services/api.dart';
 
 
 final authProvider = StateNotifierProvider<AuthNotifier,AuthState>((ref){
@@ -15,24 +15,25 @@ final authProvider = StateNotifierProvider<AuthNotifier,AuthState>((ref){
 class AuthNotifier extends StateNotifier<AuthState>{
   AuthNotifier() : super(AuthState());
 
-  void _setloguser(UserModel user){
+  /* void _setloguser(UserModel user){
     state = state.copyWith(
       user:user,
       authStatus: AuthStatus.authenticated,
     );
 
-  }
+  } */
   
 
 
 
   Future<void> login (String identifier, String password) async{
     try {
-      Map<String,String> credenciales = {
+      /* Map<String,String> credenciales = {
         "identifier": identifier,
         "password": password
       };
       final user = await Api().login(credenciales);
+       */
       //_setloguser(user);
     } catch (e) {
       logout('Credenciales incorrectas');

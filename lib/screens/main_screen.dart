@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pira/utils/constants.dart';
 import 'pages/pages.dart';
 
 class MainScreen extends StatefulWidget {
@@ -26,9 +27,9 @@ class _MainScreenState extends State<MainScreen> {
     return  Scaffold(
       body: SafeArea(child: pages[_currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.black,
+        selectedItemColor: secondaryDark,
         backgroundColor: Colors.white,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: fontLight,
         showUnselectedLabels: false,
         showSelectedLabels: false,
         elevation: 0,
