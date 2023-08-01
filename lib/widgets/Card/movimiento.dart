@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:pira/widgets/Texts/text_montse.dart';
 
 class Movimiento extends StatelessWidget {
-  const Movimiento({super.key});
-
+  final Color colorIcon;
+  final IconData icon;
+  final String tipo;
+  final String valor;
+  final String detalles;
+  final String fecha;
+  const Movimiento({ required this.fecha, required this.valor, required this.tipo,required this.detalles, required this.icon, required this.colorIcon, super.key});
+  
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 5,right: 5,left: 5),
+      margin: const EdgeInsets.only(bottom: 12,right: 5,left: 5),
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       decoration:  BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -19,12 +26,12 @@ class Movimiento extends StatelessWidget {
         )
         ]
       ),
-      child: const Row(
+      child:  Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Icon(Icons.arrow_downward,size: 18,),
-          _Datos(),
-          _FechaMonto()
+          Icon(icon,size: 16, color: colorIcon,),
+           _Datos(tipo: tipo, detalles: detalles,),
+           _FechaMonto(valor:valor,fecha:fecha)
         ],
       ),
     );
@@ -32,29 +39,33 @@ class Movimiento extends StatelessWidget {
 }
 
 class _Datos extends StatelessWidget {
-  const _Datos();
+  final String tipo;
+  final String detalles;
+  const _Datos({required this.tipo, required this.detalles});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Gasto', style: TextStyle(fontSize: 16),),
-        Text('Compra de zapatos',style: TextStyle(fontSize: 12),)
+        TextMontse(texto:tipo, style: const TextStyle(fontSize: 14),),
+        TextMontse(texto:detalles,style: const TextStyle(fontSize: 10),)
       ],
     );
   }
 }
 class _FechaMonto extends StatelessWidget {
-  const _FechaMonto();
+  final String valor;
+  final String fecha;
+  const _FechaMonto({required this.valor ,required this.fecha});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('-25.000 Gs.', style: TextStyle(fontSize: 12),),
-        Text('2023-10-10', style: TextStyle(fontSize: 12),),
+        TextMontse(texto:valor, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),),
+        TextMontse(texto:fecha, style: const TextStyle(fontSize: 12),),
       ],
     );
   }

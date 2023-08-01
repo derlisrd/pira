@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:pira/utils/constants.dart';
+import 'package:pira/widgets/Texts/text_montse.dart';
 
 class SalidaEntradaCard extends StatelessWidget {
   final Color color;
@@ -30,15 +31,15 @@ class SalidaEntradaCard extends StatelessWidget {
       height: 70,
       width: 130,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(tipo, style: const TextStyle( color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12, fontFamily: 'Montserrat'),),
-              Text(monto,style: const TextStyle( color: Colors.white,fontWeight: FontWeight.bold, fontSize: 12, fontFamily: 'Montserrat'),),
+              TextMontse(style: style, texto: tipo),
+              TextMontse(style: style, texto: monto),
             ],
           ),
           Icon(
@@ -51,3 +52,5 @@ class SalidaEntradaCard extends StatelessWidget {
       ));
   }
 }
+
+const style =  TextStyle( color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11, fontFamily: 'montserrat' );

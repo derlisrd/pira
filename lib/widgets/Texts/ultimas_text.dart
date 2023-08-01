@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pira/widgets/Texts/text_montse.dart';
 
 class UltimasText extends StatelessWidget {
   const UltimasText({super.key});
@@ -10,7 +11,7 @@ class UltimasText extends StatelessWidget {
       child:  Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("Ultimos movimientos",style: TextStyle(fontFamily: "Montserrat", fontSize: 16,fontWeight: FontWeight.w600),)
+          TextMontse(texto:"Ultimos movimientos",style: TextStyle(fontFamily: "Montserrat", fontSize: 16,fontWeight: FontWeight.w600),)
         ],
       ),
     );

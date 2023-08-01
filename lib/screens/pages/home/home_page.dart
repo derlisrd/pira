@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:pira/providers/info_provider.dart';
 import 'package:pira/widgets/Card/movimiento.dart';
 import 'package:pira/widgets/Card/salidaentrada_card.dart';
 import 'package:pira/widgets/Texts/balance_text.dart';
 import 'package:pira/widgets/Texts/ultimas_text.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+
+
+class _HomePageState extends State<HomePage> {
+
+
+
+  @override
   Widget build(BuildContext context) {
+    final infoProvider = context.watch<InfoProvider>();
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
@@ -39,15 +52,13 @@ class HomePage extends StatelessWidget {
               )
             ],
           ),
+          Text(infoProvider.ingresoTotal),
+          ElevatedButton(onPressed: (){
+            infoProvider.leer();
+
+          }, child: const Text('PRESIONAR')),
           const UltimasText(),
-          const Movimiento(),
-          const Movimiento(),
-          const Movimiento(),
-          const Movimiento(),
-          const Movimiento(),
-          const Movimiento(),
-          const Movimiento(),
-          const Movimiento(),
+          const Movimiento(fecha: '2000', valor: '2000', tipo: "Ingreso", detalles: "sueldazo", icon: Icons.arrow_upward_outlined, colorIcon: Colors.green)
           ]),
         ),
       ),
