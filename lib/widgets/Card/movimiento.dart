@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pira/model/movimiento_model.dart';
 import 'package:pira/widgets/Texts/text_montse.dart';
 
 class Movimiento extends StatelessWidget {
-  final Color colorIcon;
-  final IconData icon;
-  final String tipo;
-  final String valor;
-  final String detalles;
-  final String fecha;
-  const Movimiento({ required this.fecha, required this.valor, required this.tipo,required this.detalles, required this.icon, required this.colorIcon, super.key});
+  
+  final MovimientoModel model;
+  const Movimiento({super.key, required this.model});
   
   @override
   Widget build(BuildContext context) {
@@ -29,9 +26,9 @@ class Movimiento extends StatelessWidget {
       child:  Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Icon(icon,size: 16, color: colorIcon,),
-           _Datos(tipo: tipo, detalles: detalles,),
-           _FechaMonto(valor:valor,fecha:fecha)
+/*           Icon(icon,size: 16, color: colorIcon,), */
+           _Datos(tipo: model.tipo.toString(), detalles: model.detalles.toString(),),
+           _FechaMonto(valor:model.valor.toString(),fecha:model.fecha.toString())
         ],
       ),
     );

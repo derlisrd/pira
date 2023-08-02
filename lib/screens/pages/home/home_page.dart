@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pira/model/info_model.dart';
+import 'package:pira/model/movimiento_model.dart';
 import 'package:pira/providers/info_provider.dart';
+import 'package:pira/services/api.dart';
 import 'package:pira/widgets/Card/movimiento.dart';
+//import 'package:pira/widgets/Card/movimiento.dart';
 //import 'package:pira/widgets/Card/movimiento.dart';
 import 'package:pira/widgets/Card/salidaentrada_card.dart';
 import 'package:pira/widgets/Texts/balance_text.dart';
@@ -19,18 +21,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-   late Future< List<ItemsMovimiento>> _itemsMovimiento;
+  late Future<List<MovimientoModel>> _itemsMovimiento ;
    
 
-   Future<List<ItemsMovimiento>> _getMovimientos() async {
+   Future<List<MovimientoModel>> _getMovimientos() async {
     final provider = Provider.of<InfoProvider>(context, listen: false);
-    return await provider.getListaMovimientos();
+    final data =  await provider.getListaMovimientos();
+    //print(data.toString());
+    return data;
   }
   
   @override
   void initState() {
     super.initState();
-    _itemsMovimiento = _getMovimientos();
+   _itemsMovimiento =  _getMovimientos();
   }
 
   @override
@@ -67,21 +71,14 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           const UltimasText(),
-          FutureBuilder(
-            future: _itemsMovimiento,
-            builder: (_, snapshot) {
-
-                return ListView.builder(
-                shrinkWrap: true,
-                itemCount: 5,
-                itemBuilder: (_,index){
-                return const Movimiento(fecha: 'fecha', valor: "10000", tipo: "salida", detalles: "detalles", icon: Icons.arrow_downward_outlined, colorIcon: Colors.red);
-                }
-              );
-          },)
+          
           ]),
         ),
       ),
     );
   }
+
+  
+
+
 }

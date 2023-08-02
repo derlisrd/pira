@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 //import 'package:pira/model/info_model.dart';
 import 'package:pira/model/login_model.dart';
+import 'package:pira/model/movimiento_model.dart';
 
 class Api{
   final dio = Dio();
@@ -32,7 +33,7 @@ class Api{
     }
   }
 
-  Future<void> movimientos() async{
+  Future<List<MovimientoModel>> movimientos() async{
     
     try {
       final response = await dio.get(
@@ -43,16 +44,20 @@ class Api{
           'Accept': 'application/json'
         })
         );
-
-      return response.data;
+      final res = response.data;
+      
+      return movimientosFromJson(res['data']);
       
     } catch (e) {
       if (e is DioException && e.response != null) {
         //return LoginModel(isLogin: false,errorMessage:e.response!.data['error']['message'] );
+        print(e.response!.data['error']['message']);
       } else {
         // Manejar otros errores, como problemas de conexión o timeouts.
         //return LoginModel(isLogin: false,errorMessage:e.toString() );
+        print(e.toString());
       }
+      return [];
     }
     
   }
