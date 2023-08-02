@@ -18,10 +18,12 @@ class InfoModel{
 }
 
 class ItemsMovimiento {
-  final TipoMovimiento tipo;
-  final String detalles;
-  final String valor;
-  final String fecha;
+  final String? tipo;
+  final String? detalles;
+  final String? valor;
+  final String? fecha;
 
-  ItemsMovimiento({required this.tipo, required this.detalles, required this.fecha, required this.valor});
+  ItemsMovimiento({this.tipo,  this.detalles,  this.fecha, this.valor});
+
+
 }
