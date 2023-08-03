@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pira/model/movimiento_model.dart';
 import 'package:pira/providers/info_provider.dart';
-import 'package:pira/services/api.dart';
-import 'package:pira/widgets/Card/movimiento.dart';
-//import 'package:pira/widgets/Card/movimiento.dart';
-//import 'package:pira/widgets/Card/movimiento.dart';
+import 'package:pira/widgets/Card/movimiento_card.dart';
 import 'package:pira/widgets/Card/salidaentrada_card.dart';
 import 'package:pira/widgets/Texts/balance_text.dart';
 import 'package:pira/widgets/Texts/ultimas_text.dart';
@@ -22,7 +19,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   late Future<List<MovimientoModel>> _itemsMovimiento ;
-   
+  
+  List<MovimientoModel> itemsMov = [
+    MovimientoModel(detalles: "hola",tipo: "ingreso",fecha: '2023/02/02',valor: 1200),
+    MovimientoModel(detalles: "hola",tipo: "ingreso",fecha: '2023/02/02',valor: 1200)
+  ];
 
    Future<List<MovimientoModel>> _getMovimientos() async {
     final provider = Provider.of<InfoProvider>(context, listen: false);
@@ -71,7 +72,14 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           const UltimasText(),
-          
+          ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: itemsMov.length,
+            itemBuilder: (context, index) {
+              return  MovimientoCard(mov: itemsMov[index]);
+            },
+          )
           ]),
         ),
       ),

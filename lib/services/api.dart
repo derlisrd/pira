@@ -51,11 +51,11 @@ class Api{
     } catch (e) {
       if (e is DioException && e.response != null) {
         //return LoginModel(isLogin: false,errorMessage:e.response!.data['error']['message'] );
-        print(e.response!.data['error']['message']);
+        //print(e.response!.data['error']['message']);
       } else {
         // Manejar otros errores, como problemas de conexión o timeouts.
         //return LoginModel(isLogin: false,errorMessage:e.toString() );
-        print(e.toString());
+        //print(e.toString());
       }
       return [];
     }

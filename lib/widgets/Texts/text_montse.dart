@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TextMontse extends StatelessWidget {
   final String texto;
-  final TextStyle style;
-  const TextMontse({ required this.style, required this.texto, super.key});
+  final TextStyle? style;
+  const TextMontse({ this.style, required this.texto, super.key});
 
   @override
   Widget build(BuildContext context) {
